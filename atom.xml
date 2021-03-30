@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-03-12T06:35:20.391Z</updated>
+  <updated>2021-03-21T16:22:41.147Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,36 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>fucking-algorithm</title>
+    <link href="http://example.com/2021/03/21/fucking-algorithm/"/>
+    <id>http://example.com/2021/03/21/fucking-algorithm/</id>
+    <published>2021-03-21T15:16:50.000Z</published>
+    <updated>2021-03-21T16:22:41.147Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h2><p>题目来自leetcode28.实现strStr()</p><p>实现 strStr() 函数。</p><p>给定一个 haystack 字符串和一个 needle 字符串，在 haystack 字符串中找出 needle 字符串出现的第一个位置 (从0开始)。如果不存在，则返回  -1。</p><p>示例 1:</p><p>输入: haystack = “hello”, needle = “ll”<br>输出: 2<br>示例 2:</p><p>输入: haystack = “aaaaa”, needle = “bba”<br>输出: -1<br>说明:</p><p>当 needle 是空字符串时，我们应当返回什么值呢？这是一个在面试中很好的问题。</p><p>对于本题而言，当 needle 是空字符串时我们应当返回 0 。这与C语言的 strstr() 以及 Java的 indexOf() 定义相符。</p><p>来源：力扣（LeetCode）<br>链接：<a href="https://leetcode-cn.com/problems/implement-strstr">https://leetcode-cn.com/problems/implement-strstr</a><br>著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p><h2 id="分析："><a href="#分析：" class="headerlink" title="分析："></a>分析：</h2><p>暴力破解版本：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span>  <span class="keyword">int</span> <span class="title">strStr</span><span class="params">(String haystack, String needle)</span></span>&#123;</span><br><span class="line">       <span class="keyword">int</span> M,N;</span><br><span class="line">       M = needle.length();</span><br><span class="line">       N = haystack.length();</span><br><span class="line">       <span class="keyword">if</span>(M==<span class="number">0</span>)<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">       <span class="keyword">if</span>(N&lt;M) <span class="keyword">return</span>  -<span class="number">1</span>;</span><br><span class="line">       <span class="keyword">int</span> i;</span><br><span class="line">       <span class="keyword">for</span>(i =<span class="number">0</span> ; i &lt;= N-M; i++)&#123;   <span class="comment">//N-M表示最极端情况下，haystack串刚好在最后匹配到needle 再往后移动指针的话，长度首先就不能满足要求</span></span><br><span class="line">           <span class="keyword">int</span> j; <span class="comment">// j 作为待匹配串的临时指针，一点一点往待匹配串后面挪，失败了就回退</span></span><br><span class="line">           <span class="keyword">for</span>(j = <span class="number">0</span>; j &lt; M ; j++)&#123;</span><br><span class="line">               <span class="keyword">if</span>(needle.charAt(j) != haystack.charAt(i+j))&#123;</span><br><span class="line">                   <span class="keyword">break</span>;</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="keyword">if</span>(j==M) <span class="keyword">return</span> i;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure><h4 id="注："><a href="#注：" class="headerlink" title="注："></a>注：</h4><p>此种方式对指针的挪动较频繁，且对于有大量重复字符的串来说，这种方式做了很多的无效匹配，空间复杂度为O（MN）</p><p>大量重复字符的情况大致可以分为以下两种情况：</p><ol><li><p>如 hackstack = “aaaacaaav”， needle=“aaav” 。 可以发现，一旦捕捉到c，也就是在needle中从未出现的字符，那么可以确定此前的串片段中不可能存在匹配needle的子字符串。也就是说，至少也得把指针挪到c之后来继续匹配，要是还继续一步步挪指针就会产生很多的无效操作。</p></li><li><p>如 hackstack = ”bbbbbbba“，needle=”bba“，在挪动指针时，我们并不会在半途中遇到needle中不存在的字符，但我们也没有必要从头再次对needle进行遍历，即我们可以在确认a之前的字符都是匹配的情况下，可以通过不回退已经匹配的子串指针，整体将指针向后移动</p></li></ol><h2 id="思路（kmp版本）："><a href="#思路（kmp版本）：" class="headerlink" title="思路（kmp版本）："></a>思路（kmp版本）：</h2><p>首先定义一个dp数组</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">dp[j][c] &#x3D; next</span><br><span class="line">0 &lt;&#x3D; j &lt; M，代表当前的状态</span><br><span class="line">0 &lt;&#x3D; c &lt; 256，代表遇到的字符（ASCII 码）</span><br><span class="line">0 &lt;&#x3D; next &lt;&#x3D; M，代表下一个状态</span><br><span class="line"></span><br><span class="line">dp[4][&#39;A&#39;] &#x3D; 3 表示：</span><br><span class="line">当前是状态 4，如果遇到字符 A，</span><br><span class="line">pat 应该转移到状态 3</span><br><span class="line"></span><br><span class="line">dp[1][&#39;B&#39;] &#x3D; 2 表示：</span><br><span class="line">当前是状态 1，如果遇到字符 B，</span><br><span class="line">pat 应该转移到状态 2  </span><br><span class="line"></span><br><span class="line">    </span><br></pre></td></tr></table></figure><p>注意：定义dp时，我们先明确几点：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public int search(String txt) &#123;</span><br><span class="line">    int M &#x3D; pat.length();</span><br><span class="line">    int N &#x3D; txt.length();</span><br><span class="line">    &#x2F;&#x2F; pat 的初始态为 0</span><br><span class="line">    int j &#x3D; 0;</span><br><span class="line">    for (int i &#x3D; 0; i &lt; N; i++) &#123;</span><br><span class="line">        &#x2F;&#x2F; 当前是状态 j，遇到字符 txt[i]，</span><br><span class="line">        &#x2F;&#x2F; pat 应该转移到哪个状态？</span><br><span class="line">        j &#x3D; dp[j][txt.charAt(i)];</span><br><span class="line">        &#x2F;&#x2F; 如果达到终止态，返回匹配开头的索引</span><br><span class="line">        if (j &#x3D;&#x3D; M) return i - M + 1;</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F; 没到达终止态，匹配失败</span><br><span class="line">    return -1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>public class KMP {<br>    private int[][] dp;<br>    private String pat;</p><pre><code>public KMP(String pat) &#123;    this.pat = pat;    int M = pat.length();    // dp[状态][字符] = 下个状态    dp = new int[M][256];    // base case    dp[0][pat.charAt(0)] = 1;    // 影子状态 X 初始为 0    int X = 0;    // 构建状态转移图（稍改的更紧凑了）    for (int j = 1; j &lt; M; j++) &#123;        for (int c = 0; c &lt; 256; c++)            dp[j][c] = dp[X][c];        dp[j][pat.charAt(j)] = j + 1;        // 更新影子状态        X = dp[X][pat.charAt(j)];    &#125;&#125;public int search(String txt) &#123;    int M = pat.length();    int N = txt.length();    // pat 的初始态为 0    int j = 0;    for (int i = 0; i &lt; N; i++) &#123;        // 计算 pat 的下一个状态        j = dp[j][txt.charAt(i)];        // 到达终止态，返回结果        if (j == M) return i - M + 1;    &#125;    // 没到达终止态，匹配失败    return -1;&#125;</code></pre><p>}</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;题目描述：&quot;&gt;&lt;a href=&quot;#题目描述：&quot; class=&quot;headerlink&quot; title=&quot;题目描述：&quot;&gt;&lt;/a&gt;题目描述：&lt;/h2&gt;&lt;p&gt;题目来自leetcode28.实现strStr()&lt;/p&gt;
+&lt;p&gt;实现 strStr() 函数。&lt;/p&gt;
+&lt;p&gt;给定</summary>
+      
+    
+    
+    
+    <category term="算法" scheme="http://example.com/categories/%E7%AE%97%E6%B3%95/"/>
+    
+    
+    <category term="kmp" scheme="http://example.com/tags/kmp/"/>
+    
+    <category term="字符匹配" scheme="http://example.com/tags/%E5%AD%97%E7%AC%A6%E5%8C%B9%E9%85%8D/"/>
+    
+    <category term="leetcode" scheme="http://example.com/tags/leetcode/"/>
+    
+  </entry>
   
   <entry>
     <title>algorithm</title>

@@ -1,0 +1,149 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>fucking-algorithm | Mr.hc</title><meta name="description" content="fucking-algorithm"><meta name="keywords" content="kmp,字符匹配,leetcode"><meta name="author" content="Mhc"><meta name="copyright" content="Mhc"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.ico"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="twitter:card" content="summary"><meta name="twitter:title" content="fucking-algorithm"><meta name="twitter:description" content="fucking-algorithm"><meta name="twitter:image" content="http://example.com/img/post.jpg"><meta property="og:type" content="article"><meta property="og:title" content="fucking-algorithm"><meta property="og:url" content="http://example.com/2021/03/21/fucking-algorithm/"><meta property="og:site_name" content="Mr.hc"><meta property="og:description" content="fucking-algorithm"><meta property="og:image" content="http://example.com/img/post.jpg"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>var autoChangeMode = '1'
+var t = Cookies.get("theme")
+if (autoChangeMode == '1'){
+  var isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+  var isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+  var isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined){
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport){
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour < 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+  }
+  } else if (t == 'light') activateLightMode()
+  else activateDarkMode()
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="canonical" href="http://example.com/2021/03/21/fucking-algorithm/"><link rel="next" title="algorithm" href="http://example.com/2021/03/12/algorithm/"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  bookmark: {
+    message_prev: 'Press',
+    message_next: 'to bookmark this page'
+  },
+  runtime_unit: 'days',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  highlightShrink: 'false',
+  isFontAwesomeV5: false,
+  isPhotoFigcaption: false
+  
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isSidebar: true  
+  }</script><noscript><style>
+#page-header {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="Mr.hc" type="application/atom+xml">
+</head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">Articles</div><div class="length_num">2</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">Tags</div><div class="length_num">4</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">Categories</div><div class="length_num">1</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> About</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> List</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fa fa-music"></i><span> Music</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fa fa-film"></i><span> Movie</span></a></li><li><a class="site-page" href="/Code/"><i class="fa-fw fa fa-code"></i><span> Code</span></a></li></ul></div></div></div></div><i class="fa fa-arrow-right on" id="toggle-sidebar" aria-hidden="true">     </i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">题目描述：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E6%9E%90%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">分析：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B3%A8%EF%BC%9A"><span class="toc-number">2.0.1.</span> <span class="toc-text">注：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF%EF%BC%88kmp%E7%89%88%E6%9C%AC%EF%BC%89%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">思路（kmp版本）：</span></a></li></ol></div></div></div><div id="body-wrap"><div class="post-bg" id="nav" style="background-image: url(/img/post.jpg)"><div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">Mr.hc</a></span><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> About</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> List</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fa fa-music"></i><span> Music</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fa fa-film"></i><span> Movie</span></a></li><li><a class="site-page" href="/Code/"><i class="fa-fw fa fa-code"></i><span> Code</span></a></li></ul></div></div><span class="toggle-menu close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span></span></div><div id="post-info"><div id="post-title"><div class="posttitle">fucking-algorithm</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="Created 2021-03-21 23:16:50"><i class="fa fa-calendar" aria-hidden="true"></i> Created 2021-03-21</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="Updated 2021-03-22 00:22:41"><i class="fa fa-history" aria-hidden="true"></i> Updated 2021-03-22</span></time><span class="post-meta__categories"><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E7%AE%97%E6%B3%95/">算法</a></span></div><div class="meta-secondline"> </div><div class="meta-thirdline"><span class="post-meta-pv-cv"><i class="fa fa-eye post-meta__icon" aria-hidden="true"> </i><span>Post View:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-commentcount"></span></div></div></div></div><main class="layout_post" id="content-inner"><article id="post"><div id="article-container"><h2 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h2><p>题目来自leetcode28.实现strStr()</p>
+<p>实现 strStr() 函数。</p>
+<p>给定一个 haystack 字符串和一个 needle 字符串，在 haystack 字符串中找出 needle 字符串出现的第一个位置 (从0开始)。如果不存在，则返回  -1。</p>
+<p>示例 1:</p>
+<p>输入: haystack = “hello”, needle = “ll”<br>输出: 2<br>示例 2:</p>
+<p>输入: haystack = “aaaaa”, needle = “bba”<br>输出: -1<br>说明:</p>
+<p>当 needle 是空字符串时，我们应当返回什么值呢？这是一个在面试中很好的问题。</p>
+<p>对于本题而言，当 needle 是空字符串时我们应当返回 0 。这与C语言的 strstr() 以及 Java的 indexOf() 定义相符。</p>
+<p>来源：力扣（LeetCode）<br>链接：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/implement-strstr">https://leetcode-cn.com/problems/implement-strstr</a><br>著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
+<h2 id="分析："><a href="#分析：" class="headerlink" title="分析："></a>分析：</h2><p>暴力破解版本：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span>  <span class="keyword">int</span> <span class="title">strStr</span><span class="params">(String haystack, String needle)</span></span>&#123;</span><br><span class="line">       <span class="keyword">int</span> M,N;</span><br><span class="line">       M = needle.length();</span><br><span class="line">       N = haystack.length();</span><br><span class="line">       <span class="keyword">if</span>(M==<span class="number">0</span>)<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">       <span class="keyword">if</span>(N&lt;M) <span class="keyword">return</span>  -<span class="number">1</span>;</span><br><span class="line">       <span class="keyword">int</span> i;</span><br><span class="line">       <span class="keyword">for</span>(i =<span class="number">0</span> ; i &lt;= N-M; i++)&#123;   <span class="comment">//N-M表示最极端情况下，haystack串刚好在最后匹配到needle 再往后移动指针的话，长度首先就不能满足要求</span></span><br><span class="line">           <span class="keyword">int</span> j; <span class="comment">// j 作为待匹配串的临时指针，一点一点往待匹配串后面挪，失败了就回退</span></span><br><span class="line">           <span class="keyword">for</span>(j = <span class="number">0</span>; j &lt; M ; j++)&#123;</span><br><span class="line">               <span class="keyword">if</span>(needle.charAt(j) != haystack.charAt(i+j))&#123;</span><br><span class="line">                   <span class="keyword">break</span>;</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="keyword">if</span>(j==M) <span class="keyword">return</span> i;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="注："><a href="#注：" class="headerlink" title="注："></a>注：</h4><p>此种方式对指针的挪动较频繁，且对于有大量重复字符的串来说，这种方式做了很多的无效匹配，空间复杂度为O（MN）</p>
+<p>大量重复字符的情况大致可以分为以下两种情况：</p>
+<ol>
+<li><p>如 hackstack = “aaaacaaav”， needle=“aaav” 。 可以发现，一旦捕捉到c，也就是在needle中从未出现的字符，那么可以确定此前的串片段中不可能存在匹配needle的子字符串。也就是说，至少也得把指针挪到c之后来继续匹配，要是还继续一步步挪指针就会产生很多的无效操作。</p>
+</li>
+<li><p>如 hackstack = ”bbbbbbba“，needle=”bba“，在挪动指针时，我们并不会在半途中遇到needle中不存在的字符，但我们也没有必要从头再次对needle进行遍历，即我们可以在确认a之前的字符都是匹配的情况下，可以通过不回退已经匹配的子串指针，整体将指针向后移动</p>
+</li>
+</ol>
+<h2 id="思路（kmp版本）："><a href="#思路（kmp版本）：" class="headerlink" title="思路（kmp版本）："></a>思路（kmp版本）：</h2><p>首先定义一个dp数组</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">dp[j][c] &#x3D; next</span><br><span class="line">0 &lt;&#x3D; j &lt; M，代表当前的状态</span><br><span class="line">0 &lt;&#x3D; c &lt; 256，代表遇到的字符（ASCII 码）</span><br><span class="line">0 &lt;&#x3D; next &lt;&#x3D; M，代表下一个状态</span><br><span class="line"></span><br><span class="line">dp[4][&#39;A&#39;] &#x3D; 3 表示：</span><br><span class="line">当前是状态 4，如果遇到字符 A，</span><br><span class="line">pat 应该转移到状态 3</span><br><span class="line"></span><br><span class="line">dp[1][&#39;B&#39;] &#x3D; 2 表示：</span><br><span class="line">当前是状态 1，如果遇到字符 B，</span><br><span class="line">pat 应该转移到状态 2  </span><br><span class="line"></span><br><span class="line">    </span><br></pre></td></tr></table></figure>
+
+<p>注意：定义dp时，我们先明确几点：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public int search(String txt) &#123;</span><br><span class="line">    int M &#x3D; pat.length();</span><br><span class="line">    int N &#x3D; txt.length();</span><br><span class="line">    &#x2F;&#x2F; pat 的初始态为 0</span><br><span class="line">    int j &#x3D; 0;</span><br><span class="line">    for (int i &#x3D; 0; i &lt; N; i++) &#123;</span><br><span class="line">        &#x2F;&#x2F; 当前是状态 j，遇到字符 txt[i]，</span><br><span class="line">        &#x2F;&#x2F; pat 应该转移到哪个状态？</span><br><span class="line">        j &#x3D; dp[j][txt.charAt(i)];</span><br><span class="line">        &#x2F;&#x2F; 如果达到终止态，返回匹配开头的索引</span><br><span class="line">        if (j &#x3D;&#x3D; M) return i - M + 1;</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F; 没到达终止态，匹配失败</span><br><span class="line">    return -1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>public class KMP {<br>    private int[][] dp;<br>    private String pat;</p>
+<pre><code>public KMP(String pat) &#123;
+    this.pat = pat;
+    int M = pat.length();
+    // dp[状态][字符] = 下个状态
+    dp = new int[M][256];
+    // base case
+    dp[0][pat.charAt(0)] = 1;
+    // 影子状态 X 初始为 0
+    int X = 0;
+    // 构建状态转移图（稍改的更紧凑了）
+    for (int j = 1; j &lt; M; j++) &#123;
+        for (int c = 0; c &lt; 256; c++)
+            dp[j][c] = dp[X][c];
+        dp[j][pat.charAt(j)] = j + 1;
+        // 更新影子状态
+        X = dp[X][pat.charAt(j)];
+    &#125;
+&#125;
+
+public int search(String txt) &#123;
+    int M = pat.length();
+    int N = txt.length();
+    // pat 的初始态为 0
+    int j = 0;
+    for (int i = 0; i &lt; N; i++) &#123;
+        // 计算 pat 的下一个状态
+        j = dp[j][txt.charAt(i)];
+        // 到达终止态，返回结果
+        if (j == M) return i - M + 1;
+    &#125;
+    // 没到达终止态，匹配失败
+    return -1;
+&#125;
+</code></pre>
+<p>}</p>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">Mhc</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://example.com/2021/03/21/fucking-algorithm/">http://example.com/2021/03/21/fucking-algorithm/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/kmp/">kmp</a><a class="post-meta__tags" href="/tags/%E5%AD%97%E7%AC%A6%E5%8C%B9%E9%85%8D/">字符匹配</a><a class="post-meta__tags" href="/tags/leetcode/">leetcode</a></div><div class="post_share"><div class="social-share" data-image="/img/post.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><a class="reward-button button--primary button--animated"> <i class="fa fa-qrcode"></i> Donate<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="lazyload post-qr-code__img" src="/img/wechat.jpg" alt="微信"/><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="lazyload post-qr-code__img" src="/img/alipay.jpg" alt="支付寶"/><div class="post-qr-code__desc">支付寶</div></li></ul></div></a></div><nav class="pagination_post" id="pagination"><div class="next-post pull-full"><a href="/2021/03/12/algorithm/"><img class="next_cover lazyload" data-src="/img/post.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">algorithm</div></div></a></div></nav></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2021 By Mhc</div><div class="framework-info"><span>Driven </span><a target="_blank" rel="noopener" href="https://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly"><span>Butterfly</span></a></div><div class="footer_custom_text">Hi,welcome to my blog!!!</div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="Read Mode"></i><i class="fa fa-plus" id="font_plus" title="Increase font size"></i><i class="fa fa-minus" id="font_minus" title="Decrease font size"></i><i class="darkmode fa fa-moon-o" id="darkmode" title="Dark Mode"></i></div><div id="rightside-config-show"><div id="rightside_config" title="Setting"><i class="fa fa-cog" aria-hidden="true"></i></div><i class="fa fa-list-ul close" id="mobile-toc-button" title="Table of Contents" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="Back to top" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@latest/lazysizes.min.js" async=""></script></body></html>
